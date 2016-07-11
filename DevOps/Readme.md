@@ -25,6 +25,7 @@
 3. [jenkins](https://jenkins.io/)
 4. [circleci](https://circleci.com/)
 5. [docker](https://www.docker.com/)
+
 ## DevOps Flow
 
 ![Imgur](http://i.imgur.com/Yk2ehC9.jpg)
@@ -34,3 +35,4 @@
 1. [維基百科](https://zh.wikipedia.org/wiki/DevOps)
 2. [ITHome](http://www.ithome.com.tw/news/96861)
 3. [山姆鍋對持續整合、持續部署、持續交付的定義](https://samkuo.me/post/2013/10/continuous-integration-deployment-delivery/)
+4. [DevOps：持續整合＆持續交付（Docker、CircleCI、AWS）](http://blog.amowu.com/2015/04/devops-continuous-integration-delivery-docker-circleci-aws-beanstalk.html)
