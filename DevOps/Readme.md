@@ -18,6 +18,10 @@
 
 「 持續交付 」 是將新的特性儘快交付到最終使用者 (end-user) 的手中 。
 
+## DevOps flow
+
+![](http://imgur.com/Yk2ehC9)
+
 
 ##Ref
 1. [維基百科](https://zh.wikipedia.org/wiki/DevOps)
