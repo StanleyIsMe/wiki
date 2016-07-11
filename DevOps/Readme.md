@@ -18,9 +18,16 @@
 
 「 持續交付 」 是將新的特性儘快交付到最終使用者 (end-user) 的手中 。
 
-## DevOps flow
+## DevOps Tool
 
-![](http://imgur.com/Yk2ehC9)
+1. [gitlab](https://about.gitlab.com/)
+2. [slack](https://slack.com/)
+3. [jenkins](https://jenkins.io/)
+4. [circleci](https://circleci.com/)
+5. [docker](https://www.docker.com/)
+## DevOps Flow
+
+![Imgur](http://i.imgur.com/Yk2ehC9.jpg)
 
 
 ##Ref
