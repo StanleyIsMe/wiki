@@ -1,0 +1,17 @@
+vagrant init ubuntu/trusty64       	初始產生Vagrantfile，預設作業系統box = ubuntu/trusty64 
+vagrant up                         	依Vagrantfile內容，啟動Vagrant
+vagrant halt                       	vm關機
+vagrant reload					   	vm重開
+vagrant ssh                        	ssh進入vm
+vagrant destroy --force            	強制刪除vm
+
+vagrant box add ubuntu/trusty64     下載ubuntu/trusty64 box
+vagrant box remove ubuntu/trusty64  刪除box
+vagrant box list					已下載哪些作業系統
+vagrant reload --provision          當vagrant已建立，下此指令執行vagrantfileweb_config.vm.provision
+vagrant provision					用指定的配置腳本配置一個vm
+vagrant box outdated			    顯示box當下版本，以及追蹤線上最新版本
+vagrant box update					更新box版本
+vagrant pakage						一個已經Build好的環境打包成一個我們自己的Box
+vagrant help						顯示vagrant有哪些指令可以使用
+

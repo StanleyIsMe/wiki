@@ -1,0 +1,48 @@
+#目前版本只有"1" or "2"
+#if vagrant-version 1.0.x then "1"  else "2"
+VAGRNTFILE_API_VERSION = "2"  
+
+Vagrant.configure(VAGRNTFILE_API_VERSION) do |config|
+  config.vm.define :app do |web_config|
+    web_config.vm.box = "ubuntu/trusty64"
+    web_config.vm.host_name = "web"
+
+    #本地與vm同步資料夾
+    web_config.vm.synced_folder ".", "/vagrant", type: "nfs"
+    web_config.vm.synced_folder "Stanley_project", "/home/vagrant/Stanley_project", type: "nfs"
+
+    #host-8080 port轉發vm-80 port
+    web_config.vm.network "forwarded_port", guest: 80, host: 8080
+    #本地端用browser以ip:10.10.10.10來存取vm
+    web_config.vm.network "private_network", ip: "10.10.10.10"
+    #公共網路允許ip透過DHCP指派
+    web_config.vm.network "public_network"
+
+    #vm初始建立時，執行外部腳本scripts/install.sh
+    web_config.vm.provision "shell", path: "scripts/install.sh"
+
+    #vm建立時，執行內部腳本
+    web_config.vm.provision :shell, :inline => "echo Hello, World"
+
+    web_config.vm.provider "virtualbox" do |v|
+      #set vm 記憶體用量
+      v.memory = 4096 
+    end
+  end
+
+
+  #multi vm,connect with each other
+  config.vm.define:app do |app_config| 
+      app_config.vm.customize  [ "modifyvm" ,  :id ,  "--name" ,  "app" ,  "--memory" ,  "512" ] 
+      app_config.vm.box  =  "ubuntu-12-10" 
+      app_config.vm.host_name  =  "app" 
+      app_config.vm.network  :hostonly ,  "33.33.13.10" 
+  end 
+  config.vm.define:db do |db_config| 
+    db_config.vm.customize  [ "modifyvm" ,  :id ,  "--name" ,  "db" ,  "--memory" ,  "512" ] 
+    db_config.vm.box  =  "ubuntu-12-10" 
+    db_config.vm.host_name  =  "db" 
+    db_config.vm.network  :hostonly ,  "33.33.13.11" 
+  end
+
+end
