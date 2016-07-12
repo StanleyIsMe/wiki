@@ -51,8 +51,7 @@ p.s :
 
 1. 若collection不存在，會自動建立
 2. 每建立一筆record，key會自動產生_id
-
-##### p.s : '>' 代表進入mongo shell 模式，因此不必理會
+3. '>' 代表進入mongo shell 模式，因此不必理會
 
 ## Ref
 
