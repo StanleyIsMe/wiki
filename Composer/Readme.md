@@ -55,6 +55,7 @@ PHP 的套件/程式庫相依管理工具
 
 `php composer.phar remove vendor/package vendor/package2`
 
+###### p.s 程式內容加入 `<?php require 'vendor/autoload.php'; ?>` 就可以直接使用.
 
 ## Ref
 [官網](https://getcomposer.org/)
@@ -62,3 +63,5 @@ PHP 的套件/程式庫相依管理工具
 [Tsung's Blog](https://blog.longwin.com.tw/2013/05/php-composer-package-library-2013/)
 
 [阿舍](http://www.arthurtoday.com/2013/01/ubuntu-install-php-composer.html)
+
+[php套件查詢](https://packagist.org/)
