@@ -2,17 +2,34 @@
 
 一種Server Push 技術，簡單說就是主動由 Server 發送訊息到 ios-Client 的方法
 
-## Flow
-
-![Imgur](http://i.imgur.com/5mizRy0.png)
-
 Role :
 
 - Device - 就是你的行動上網裝置 (MID)
 - APNS - Apple 提供連線服務的伺服器 (Gateway)
 - Provider - 需要自行實作的訊息發送者
+## Flow
+
+1.Device －－> 連接－－> APNs 獲取 DeviceToken
+
+2.Device－－>連接－－>Provider提供DeviceToken
+ 
+![Imgur](http://i.imgur.com/5mizRy0.png)
+
+3.Provider偵測需要push的消息生成Notification資訊
+ 
+![Imgur](http://i.imgur.com/CBUbTE7.png)
+
+4.Provider偵把要push的消息推送到APNs
+
+5.APNs把該消息推送到手機
 
 ![Imgur](http://i.imgur.com/fFNGhW5.png)
+
+
+
+
+
+
 
 
 Provider 在發送訊息時需要對 APNS 進行連線憑證 SSL Push Certificate
