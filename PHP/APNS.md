@@ -22,8 +22,25 @@ Provider 在發送訊息時需要對 APNS 進行連線憑證 SSL Push Certificat
 1. Sandbox => Development Ceritificate 使用的時機我們稱為 Sandbox，主要用在 App 未上架前的開發測試週期中
 2. Production => App 上架之後 Provider 就要改用 Production Ceritificate 來發送訊息
 
+當 Provider 透過憑證連上 APNS Gateway 之後，只要照著以下的格式傳送資料到 Gateway，APNS 就會幫你發送訊息了，兩種訊息格式定義如下：
+
+1. Simple Notification => 非常沒有保障的，當 Provider 發送 Notification 的時候，假如 Device 這時並沒有正在跟 APNS 連線，那麼這一封信息就不會被傳送到使用者的裝置上。
+2. Enhanced Notification => 發送時可以定義「存活時間」，如果在有效時間內只要 Device 有連上 APNS，那麼這一封訊息 (Payload) 就會被送出
 
 ![Imgur](http://i.imgur.com/CBUbTE7.png)
+
+當 Provider 要發送訊息時，必須傳送一個特別格式的資料到 APNS，這個資料我們稱為 Payload。
+
+```Json
+{
+    "aps": {
+        "alert": "Hello World.",  //提供文字訊息顯示
+        "badge": 9,               //提供 App 圖示右上角的顯示數字
+        "sound": "default"        //提供收到訊息要播放的聲音
+    },
+    "custom_key": "custom_value"
+}
+```
 
 
 ## Ref
