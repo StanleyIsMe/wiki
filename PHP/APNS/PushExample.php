@@ -47,6 +47,10 @@ if ($expire) {
     // Simple mode
     $binary  = pack('CnH*n', 0, 32, $deviceToken, strlen($payload)).$payload;
 }
+
+// 推出訊息
 $result = fwrite($fp, $binary);
+
+// 關閉socket連線
 fclose($fp);
  
