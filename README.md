@@ -1,2 +1,2 @@
 # wiki
-about learning process
+學習是永無止境
