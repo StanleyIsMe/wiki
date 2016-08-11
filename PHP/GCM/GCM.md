@@ -23,7 +23,7 @@ Device.App拿到Reg ID後，必須傳送到我們架設發送訊息的Server，�
 GCM傳送訊息到該Reg ID的Device上。
 
 ps :  
-- 發送訊息前，記得與 [Google Api Project](https://console.developers.google.com/apis/library) 進行申請
+- 實作GCM推播前，記得與 [Google Api Project](https://console.developers.google.com/apis/library) 申請 API key
 - 傳遞的訊息內容僅限JSON格式且不能超過4kb
 
 ## Ref
