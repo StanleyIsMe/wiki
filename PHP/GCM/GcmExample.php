@@ -13,26 +13,42 @@ if (!empty($_POST['message'])) {
 
     // GCM server 位置
     $url = 'https://android.googleapis.com/gcm/send';
-    $json = [
-        'registration_ids' => $registatoin_ids,
+    
+    /**
+     * GCM一次最大發送人數為1000
+     */
+    $afterSetGroup = [];
+    $groupNum = 0;
+    $memberNum = 0;
+    foreach ($registatoin_ids as $deviceToken) {
+        if ($memberNum >= 1000 && is_int($memberNum / 1000)) {
+            $groupNum++;
+        }
+        $afterSetGroup[$groupNum][] = $deviceToken;
+        $memberNum++;
+    }
+    
+    foreach ($afterSetGroup as $key => $group) {
+        $json = [
+        'registration_ids' => $group,
         'data'             => $message,
-    ];
+        ];
 
-    $headers = [
-        'Authorization: key=' . $API_KEY,
-        'Content-Type: application/json'
-    ];
-
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //忽略SSL驗證
-    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($json));
-    $result = curl_exec($curl);
-    curl_close($curl);
-
-    echo $result;
-
+        $headers = [
+            'Authorization: key=' . $API_KEY,
+            'Content-Type: application/json'
+        ];
+    
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //忽略SSL驗證
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($json));
+        $result = curl_exec($curl);
+        curl_close($curl);
+    
+        echo $result;    
+    }
 }
