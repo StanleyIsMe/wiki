@@ -53,4 +53,7 @@ $result = fwrite($fp, $binary);
 
 // 關閉socket連線
 fclose($fp);
+
+// ps: 切記 .pem檔 要由 .p12檔轉來
+// command: openssl pkcs12 -in filename.p12 -out filename.pem -nodes -clcerts
  
