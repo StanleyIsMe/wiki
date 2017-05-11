@@ -1,19 +1,20 @@
 Vagrant
 ====
 
-#WHY
+# WHY
+
 vagrant 僅使用一行指令就可以建立，啟動，停止，摧毀vm，完全補足VirtualBox所欠缺的人性化指令列介面
 
-#How to install
+# How to install
 [vagrant官方](https://www.vagrantup.com/)
 
-#Own Environment
+# Own Environment
 
 * VirtualBox:4.3.32
 * Vagrant:1.7.2
 * OS: OSX(10.10.5)
 
-#Command
+# Command
 
 ```
 vagrant init ubuntu/trusty64       	初始產生Vagrantfile，預設作業系統box = ubuntu/trusty64 
@@ -37,7 +38,7 @@ vagrant help						顯示vagrant有哪些指令可以使用
 ```
 
 
-#Vagrantfile
+# Vagrantfile
 ```Ruby
 #目前版本只有"1" or "2"
 #if vagrant-version 1.0.x then "1"  else "2"
@@ -90,7 +91,7 @@ end
 
 ```
 
-#Ref
+# Ref
 * [Vagrantfile配置技巧](http://www.imike.me/2016/03/15/Vagrantfile%E9%85%8D%E7%BD%AE%E6%8A%80%E5%B7%A7/)
 * [vagrant官方](https://www.vagrantup.com/)
 
