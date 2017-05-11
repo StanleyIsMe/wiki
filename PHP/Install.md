@@ -7,12 +7,12 @@ apt-get update
 apt-get install python-software-properties
 
 # Add PHP 5.6 PPA
-add-apt-repository -y ppa:ondrej/php5-5.6
+add-apt-repository -y ppa:ondrej/php
 apt-get update
 
 # install packages
-apt-get install -y build-essential php-pear php5-cli php5-curl php5-dev php5-fpm php5-mcrypt 
-apt-get install -y php5-memcached php5-mongo php5-mysqlnd php5-redis php5-gd php5-xdebug
+apt-get install -y build-essential php-pear php-5.6 php5.6-cli php5.6-curl php5.6-dev php5.6-fpm php5.6-mcrypt 
+apt-get install -y php-memcached php-mongo php5.6-mysql php-redis php5.6-gd php-xdebug
 
 # enable PHP module
 php5enmod mcrypt
