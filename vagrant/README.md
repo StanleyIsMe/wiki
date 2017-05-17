@@ -10,7 +10,7 @@ Vagrant是一款用於構建及配置虛擬開發環境的軟體，基於Ruby,�
 vagrant 僅使用一行指令就可以建立，啟動，停止，摧毀vm，完全補足VirtualBox所欠缺的人性化指令列介面
 
 # How to install
-[vagrant官方](https://www.vagrantup.com/)
+[vagrant官方](https://releases.hashicorp.com/vagrant/?_ga=2.189001058.898332503.1495013478-366271457.1493708242)
 
 # Own Environment
 
