@@ -1,5 +1,9 @@
 Vagrant
 ====
+Vagrant是一款用於構建及配置虛擬開發環境的軟體，基於Ruby,主要以命令行的方式運行。
+主要使用Oracle的開源VirtualBox虛擬化系統，與Chef，Salt，Puppet等環境配置管理軟體搭配使用， 可以實行快速虛擬開發環境的構建。
+早期以VirtualBox為對象，1.1以後的版本中開始對應VMware等虛擬化軟體，包括Amazon EC2之類伺服器環境的對應。
+
 
 # WHY
 
@@ -10,8 +14,8 @@ vagrant 僅使用一行指令就可以建立，啟動，停止，摧毀vm，完�
 
 # Own Environment
 
-* VirtualBox:4.3.32
-* Vagrant:1.7.2
+* VirtualBox:5.0.38
+* Vagrant:1.8.5
 * OS: OSX(10.10.5)
 
 # Command
@@ -94,6 +98,7 @@ end
 # Ref
 * [Vagrantfile配置技巧](http://www.imike.me/2016/03/15/Vagrantfile%E9%85%8D%E7%BD%AE%E6%8A%80%E5%B7%A7/)
 * [vagrant官方](https://www.vagrantup.com/)
+* [vagrant wiki](https://zh.wikipedia.org/wiki/Vagrant)
 
 
 
