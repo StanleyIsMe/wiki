@@ -1,48 +1,65 @@
-#目前版本只有"1" or "2"
-#if vagrant-version 1.0.x then "1"  else "2"
-VAGRNTFILE_API_VERSION = "2"  
+$script = <<SCRIPT
 
-Vagrant.configure(VAGRNTFILE_API_VERSION) do |config|
+timedatectl set-timezone Asia/Taipei
+timedatectl set-ntp on
+export DEBIAN_FRONTEND=noninteractive
+
+# install apache2+php7.0
+apt-get update
+apt-get install -y python-software-properties
+add-apt-repository ppa:ondrej/php
+apt-get update
+apt-get install -y build-essential curl git unzip php-pear php-dev libcurl4-openssl-dev vim apache2 libapache2-mod-php7.0
+apt-get install -y php7.0 php7.0-mysql php7.0-fpm php7.0-cli php7.0-common php7.0-curl php7.0-gd php7.0-intl php7.0-json php7.0-mbstring 
+apt-get install -y php7.0-mcrypt php7.0-opcache php7.0-pgsql php7.0-soap php7.0-sqlite3 php7.0-xml php7.0-xmlrpc php7.0-xsl php7.0-zip php-mongodb php-xdebug
+
+pecl install xdebug
+pecl install mongodb
+
+# install mongodb3.2
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+apt-get update
+apt-get install -y mongodb-org=3.2.13 mongodb-org-server=3.2.13 mongodb-org-shell=3.2.13 mongodb-org-mongos=3.2.13 mongodb-org-tools=3.2.13
+
+# php.ini setting
+echo "extension=mongodb.so" >> /etc/php/7.0/fpm/php.ini
+echo "extension=xdebug.so" >> /etc/php/7.0/fpm/php.ini
+
+# exclude from something unnecessary bug
+apt-get purge -y php7.1-*
+
+# install composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
+# enable PHP module
+phpenmod mcrypt
+
+#clean apt-get 
+apt-get autoclean && apt-get -y autoremove
+
+
+service php7.0-fpm restart
+service mongod start
+service apache2 restart
+
+SCRIPT
+
+
+
+Vagrant.configure(2) do |config|
   config.vm.define :app do |web_config|
-    web_config.vm.box = "ubuntu/trusty64"
+    web_config.vm.box = "ubuntu/xenial64"
     web_config.vm.host_name = "web"
 
-    #本地與vm同步資料夾
-    web_config.vm.synced_folder ".", "/vagrant", type: "nfs"
-    web_config.vm.synced_folder "Stanley_project", "/home/vagrant/Stanley_project", type: "nfs"
-
-    #host-8080 port轉發vm-80 port
-    web_config.vm.network "forwarded_port", guest: 80, host: 8080
-    #本地端用browser以ip:10.10.10.10來存取vm
-    web_config.vm.network "private_network", ip: "10.10.10.10"
-    #公共網路允許ip透過DHCP指派
-    web_config.vm.network "public_network"
-
-    #vm初始建立時，執行外部腳本scripts/install.sh
-    web_config.vm.provision "shell", path: "scripts/install.sh"
-
-    #vm建立時，執行內部腳本
-    web_config.vm.provision :shell, :inline => "echo Hello, World"
+    web_config.vm.synced_folder ".", "/vagrant/", type: "nfs"
+    web_config.vm.synced_folder "project", "/home/vagrant/project", type: "nfs"
+    web_config.vm.network "private_network", ip: "33.33.33.98"
+	  web_config.vm.provision "shell", inline: $script
 
     web_config.vm.provider "virtualbox" do |v|
-      #set vm 記憶體用量
-      v.memory = 4096 
+      v.memory = 1024
     end
   end
-
-
-  #multi vm,connect with each other
-  config.vm.define:app do |app_config| 
-      app_config.vm.customize  [ "modifyvm" ,  :id ,  "--name" ,  "app" ,  "--memory" ,  "512" ] 
-      app_config.vm.box  =  "ubuntu-12-10" 
-      app_config.vm.host_name  =  "app" 
-      app_config.vm.network  :hostonly ,  "33.33.13.10" 
-  end 
-  config.vm.define:db do |db_config| 
-    db_config.vm.customize  [ "modifyvm" ,  :id ,  "--name" ,  "db" ,  "--memory" ,  "512" ] 
-    db_config.vm.box  =  "ubuntu-12-10" 
-    db_config.vm.host_name  =  "db" 
-    db_config.vm.network  :hostonly ,  "33.33.13.11" 
-  end
-
 end
