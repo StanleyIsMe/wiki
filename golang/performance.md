@@ -19,7 +19,7 @@ package encoding/json 當使用marshal或unmarshal也是依賴在reflection，�
 
 
 
-
+`ps:以上我會再補上benchmark比較結果`
 
 
 ## Ref
