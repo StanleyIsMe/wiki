@@ -20,3 +20,7 @@ func main() {
 
 }
 ```
+
+
+## Ref
+[Golang 語言基礎之六： string, pointer](https://studygolang.com/articles/4205)
