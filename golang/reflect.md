@@ -1,6 +1,6 @@
 ## reflect
 
-example:
+Struct trans to Map example:
 
 ```go
 func StructToMap(dynamicParame interface{}) map[string]string {
@@ -24,4 +24,34 @@ func StructToMap(dynamicParame interface{}) map[string]string {
 		}
 	}
   return input
+```
+
+Interface trans to Map example:
+```go
+func ParseParameter(parameter interface{}) map[string]string {
+	input := make(map[string]string)
+	reflectParameter := reflect.ValueOf(parameter)
+
+	if reflectParameter.Kind() == reflect.Map {
+		for _, key := range reflectParameter.MapKeys() {
+			val := reflectParameter.MapIndex(key)
+
+			if key.Kind() != reflect.String {
+				continue
+			}
+
+			value := reflect.ValueOf(val.Interface())
+
+			switch value.Kind() {
+			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+				input[key.String()] = strconv.FormatInt(value.Int(), 10)
+
+			case reflect.String:
+				input[key.String()] = value.String()
+			}
+		}
+	}
+
+	return input
+}
 ```
