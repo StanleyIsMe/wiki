@@ -1,68 +1,78 @@
-Given the root of a binary tree, return the inorder traversal of its nodes' values.
+A string s is called good if there are no two different characters in s that have the same frequency.
+
+Given a string s, return the minimum number of characters you need to delete to make s good.
+
+The frequency of a character in a string is the number of times it appears in the string. 
+
+For example, in the string "aab", the frequency of 'a' is 2, while the frequency of 'b' is 1.
 
 # Example 1:
 
-![alt leetcode](https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg)
-
 ```
-Input: root = [1,null,2,3]
-Output: [1,3,2]
-```
-
-# Example 4:
-
-![alt leetcode](https://assets.leetcode.com/uploads/2020/09/15/inorder_5.jpg)
-
-```
-Input: root = [1,2]
-Output: [2,1]
+Input: s = "aab"
+Output: 0
+Explanation: s is already good.
 ```
 
+# Example 2:
+
+```
+Input: s = "aaabbbcc"
+Output: 2
+Explanation: You can delete two 'b's resulting in the good string "aaabcc".
+Another way it to delete one 'b' and one 'c' resulting in the good string "aaabbc".
+```
+
+# Example 3:
+
+```
+Input: s = "ceabaacb"
+Output: 2
+Explanation: You can delete both 'c's resulting in the good string "eabaab".
+Note that we only care about characters that are still in the string at the end (i.e. frequency of 0 is ignored).
+```
 
 Constraints:
-- The number of nodes in the tree is in the range [0, 100].
-- -100 <= Node.val <= 100
+- 1 <= s.length <= 105
+- s contains only lowercase English letters.
 
 
 
 ## solution 1
 
 ```golang
-
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-var all []int
-func inorderTraversal(root *TreeNode) []int {
-    if root == nil {
-        return nil
+func minDeletions(s string) int {
+    if len(s) == 1 {
+        return 0
     }
-    all = nil
-    path(root)
-    return all
-}
-
-func path (currentNode *TreeNode) {
-    if currentNode.Left != nil {
-        path(currentNode.Left)
+    
+    counter := make([]int, 26)
+    countTemp := make(map[int]bool)
+    for i := range s {
+		counter[s[i]-'a']++
+	}
+    
+    result := 0
+    for _,val := range counter {
+        for val != 0{
+            if _, ok := countTemp[val];ok {
+                val--
+                result++
+            } else {
+                countTemp[val] = true
+                break
+            }
+        }
+    
         
     }
-    all = append(all, currentNode.Val)
-    
-    if currentNode.Right != nil {
-        path(currentNode.Right)
-    }
+    return result
 }
 ```
 
 時間複雜:  O(n)
 
-空間複雜:  O(logn) 
+空間複雜:  O(n)
 
 ## Ref
-[leetcode](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+[leetcode](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)
